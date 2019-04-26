@@ -8,5 +8,5 @@ Cada usuário da plataforma terá um nickname único e as conversas só são pos
 
 ## Tecnologias
 
-* Implementação do back-end na linguagem JavaScript (ECMAScript) com NodeJS.
-* Implementação do front-end na linguagem JavaScript com o framework ReactJS.
+*  back-end na linguagem JavaScript (ECMAScript) com NodeJS.
+*  front-end na linguagem JavaScript com o framework ReactJS.
