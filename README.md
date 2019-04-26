@@ -1,4 +1,4 @@
-# polaroid - Rede social para conversação
+# polaroid - Chat em tempo real
 
 ## Visão Geral
 
