@@ -62,3 +62,46 @@ Abaixo encontram-se os requisitos não funcionais categorizados a partir dos req
 | 7.1                                   | "No sistema é possível que a conversa entre usuários seja excluída, clicando com o botão direito na conversa e selecionando excluir conversa."                                                                                            | Especificação | Essencial (médio) | 
 | 7.2                                   | "O sistema verifica se existe a ligação entre os usuário e se a conversa existe, sendo válidos a conversa é excluída"                                                                                                                     | Especificação | Essencial (médio) | 
 | 7.3                                   | "Após a operação de exclusão, é notificado ao usuário que houve êxito. "                                                                                                                                                                  | Interface     | Essencial (médio) | 
+
+## RF008 - Apagar conversas
+|                                       |                                                                                                                                                                                                                                           |               |                   | 
+|---------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|-------------------| 
+| Código                                | Descricao                                                                                                                                                                                                                                 | Categoria     | Necessidade       | 
+| 8.1                                        | O sistema deverá apagar todas as mensagens entre os usuários quando solicitado por algum destes. Essa ação não reflete aos dois lados da conversa.                                                                                                 | Interface     | Essencial (médio) | 
+| 8.2                                        | "Ao apagar uma conversa, ela não deverá ser mais acessível pelo usuário que solicitou a exclusão."                                                                                                                                                 | Desempenho    | Essencial (médio) | 
+
+## RF009 - Criar grupo de conversa com amigos
+|                                       |                                                                                                                                                                                                                                           |               |                   | 
+|---------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|-------------------| 
+| Código                                | Descricao                                                                                                                                                                                                                                 | Categoria     | Necessidade       | 
+| 9.1                                        | O sistema disponibiliza a opção de criar um grupo com vários amigos para conversas compartilhadas entre todos os participantes                                                                                                                     | Especificação | Essencial (médio) | 
+| 9.2                                        | "Ao lado de ""Criar um conversar"" haverá a opção de criar um grupo, que deverá ser inserido no mínimo 3 usuários(amigos), para sua criação."                                                                                                      | Usabilidade   | Essencial (médio) | 
+| 9.3                                        | "O sistema recebe o username dos participantes e cria o grupo juntamente a uma nova conversa compartilhada entre eles. O sistema adiciona a tag ""administrador"" ao criador do grupo, dando privilégios como adicionar, remover e excluir grupo." | Especificação | Essencial (médio) | 
+
+## RF010 - Convidar um amigo para grupo
+|                                       |                                                                                                                                                                                                                                           |               |                   | 
+|---------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|-------------------| 
+| Código                                | Descricao                                                                                                                                                                                                                                 | Categoria     | Necessidade       | 
+| 10.1                                       | "O usuário, administrador do grupo, clicando com o direito no grupo, pode selecionar ""Adicionar novo membro"", e informa qual o username do novo membro."                                                                                         | Usabilidade   | Essencial (médio) | 
+| 10.2                                       | "O sistema nofitifica o usuário que ele foi adicionado ao grupo, obtendo acesso as conversas a partir de sua data de ingressão no grupo."                                                                                                          | Especificação | Importante (alto) | 
+
+## RF011 - Sair de um grupo
+|                                       |                                                                                                                                                                                                                                           |               |                   | 
+|---------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|-------------------| 
+| Código                                | Descricao                                                                                                                                                                                                                                 | Categoria     | Necessidade       | 
+| 11.1                                       | "Em um grupo de conversas, o sistema deverá ter a função ""Sair do Grupo"" possibilitando o abandono de um membro do grupo caso solicitado"                                                                                                        | Especificação | Importante (alto) | 
+| 11.2                                       | Usuários administradores podem remover membros de um grupo                                                                                                                                                                                         | Segurança     | Essencial (médio) | 
+| 11.3                                       | "Ao sair de um grupo, as mensagens e a conversa do grupo são apagadas para o usuário que foi removido, seja por conta própria ou por um administrador."                                                                                            | Desempenho    | Importante (alto) | 
+
+
+
+
+
+
+
+
+
+
+
+
+
