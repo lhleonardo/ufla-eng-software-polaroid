@@ -5,7 +5,7 @@ Um requisito funcional é o conjunto das tarefas e serviços que o software pode
 
 ## Requisitos
 
-| Código/Ref. |              Descrição             | Necessidade | Tempo gasto | Dificuldade |
+| Código/Ref. |              Descrição             | Necessidade |   Situação  | Dificuldade |
 |-------------|:----------------------------------:|:-----------:|:-----------:|:-----------:|
 |    RF001    |          Envio de mensagem         |     Alta    |             |             |
 |    RF002    |       Cadastro de nova conta       |     Alta    |             |             |
