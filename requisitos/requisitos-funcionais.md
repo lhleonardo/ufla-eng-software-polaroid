@@ -1,5 +1,8 @@
 # Requisitos Funcionais do Software
 
+### Explicação teórica
+Um requisito funcional é o conjunto das tarefas e serviços que o software pode executar. Podendo extrair os requisitos dos casos de uso
+
 | Código/Ref. |              Descrição             | Necessidade | Tempo gasto | Dificuldade |
 |-------------|:----------------------------------:|:-----------:|:-----------:|:-----------:|
 |    RF001    |          Envio de mensagem         |     Alta    |             |             |
