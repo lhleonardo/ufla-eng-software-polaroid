@@ -9,7 +9,7 @@ Um requisito funcional é o conjunto das tarefas e serviços que o software pode
 |-------------|:----------------------------------:|:-----------:|:-----------:|:-----------:|
 |    RF001    |          Envio de mensagem         |     Alta    |             |             |
 |    RF002    |       Cadastro de nova conta       |     Alta    |             |             |
-|    RF003    |    Atualização de dados da conta   |    Baixa    |             |             |
+|    RF003    |    Atualizar de dados da conta   |    Baixa    |             |             |
 |    RF004    |         Adicionar um amigo         |     Alta    |             |             |
 |    RF005    |          Excluir um amigo          |    Media    |             |             |
 |    RF006    |    Iniciar conversa com um amigo   |     Alta    |             |             |
