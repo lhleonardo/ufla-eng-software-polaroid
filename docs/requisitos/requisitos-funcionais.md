@@ -14,7 +14,7 @@ Um requisito funcional é o conjunto das tarefas e serviços que o software pode
 |    RF005    |          Excluir um amigo          |    Media    |             |             |
 |    RF006    |    Iniciar conversa com um amigo   |     Alta    |             |             |
 |    RF007    |    Excluir conversa com um amigo   |    Baixa    |             |             |
-|    RF008    |          Apagar conversas          |    Media    |             |             |
+|    RF008    |     Excluir conversa de grupo      |    Media    |             |             |
 |    RF009    | Criar grupo de conversa com amigos |    Baixa    |             |             |
 |    RF010    |    Convidar um amigo para grupo    |    Baixa    |             |             |
 |    RF011    |    Sair de um grupo de conversa    |     Alta    |             |             |
