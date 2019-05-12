@@ -4,5 +4,12 @@ Os atributos dos requisitos englobam:
 - Código
 - Descrição
 - Necessidade
-- Tempo
+- Situação
 - Dificuldade
+
+Cada um dos atributos representa: 
+- Código: uma referência única ao requisito funcional
+- Descrição: texto que detalha um requisito funcional
+- Necessidade: Alta, Média ou Baixa
+- Situação: Aprovado para funcionalidades que devem estar presentes no sistema e Proposto para funções cuja implantação no sistema está em estudo
+- Dificuldade: Alto, Médio ou Baixo
