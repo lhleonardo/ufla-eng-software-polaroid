@@ -10,6 +10,9 @@ Atores: Usuário
 
 Tabelas descritivas para cada um dos casos de uso da imagem acima
 
+### RF001 - Envio de Mensagem
+|                 |                                                                                                                                         |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 |Caso de Uso:     |RF001 - Envio de Mensagem                                                                                                                |
 |-----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 |Atores:          |Usuário                                                                                                                                  |
@@ -25,6 +28,10 @@ Tabelas descritivas para cada um dos casos de uso da imagem acima
 |Fluxo Alternativo|                                                                                                                                         |
 |                 |---                                                                                                                                      |
 |                 |                                                                                                                                         |
+
+### RF002 - Cadastro de Nova Conta
+|                 |                                                                                                                                         |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 |Caso de Uso:     |RF002 - Cadastro de nova conta                                                                                                           |
 |Atores:          |Usuário                                                                                                                                  |
 |Descrição        |Criar uma nova conta no sistema para o usuário                                                                                           |
@@ -40,6 +47,10 @@ Tabelas descritivas para cada um dos casos de uso da imagem acima
 |                 |4. [SISTEMA] Caso o login e e-mail já existam, mostra a mensagem "Login já existe"                                                       |
 |                 |4. [SISTEMA] Caso o login já exista, mostra a possibilidade  de recuperar a senha                                                        |
 |                 |                                                                                                                                         |
+
+### RF003 - Atualizar dados da conta 
+|                 |                                                                                                                                         |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 |Caso de Uso:     |RF003 - Atualizar dados da conta                                                                                                         |
 |Atores:          |Usuário                                                                                                                                  |
 |Descrição        |O usuário, em seu perfil, escolhe o dado que deseja alterar.                                                                             |
@@ -54,6 +65,9 @@ Tabelas descritivas para cada um dos casos de uso da imagem acima
 |Fluxo Alternativo|                                                                                                                                         |
 |                 |---                                                                                                                                      |
 |                 |                                                                                                                                         |
+### RF004 - Adicionar um Amigo 
+|                 |                                                                                                                                         |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 |Caso de Uso:     |RF004 - Adicionar um amigo                                                                                                               |
 |Atores:          |Usuário                                                                                                                                  |
 |Descrição        |O usuário adiciona um amigo em sua lista de amigos.                                                                                      |
@@ -68,6 +82,10 @@ Tabelas descritivas para cada um dos casos de uso da imagem acima
 |Fluxo Alternativo|                                                                                                                                         |
 |                 |4. [SISTEMA] Caso o usuário não exista, mostrar a mensagem "Usuário inexistente".                                                        |
 |                 |                                                                                                                                         |
+
+### RF005 - Excluir um amigo
+|                 |                                                                                                                                         |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 |Caso de Uso:     |RF005 - Excluir um amigo                                                                                                                 |
 |Atores:          |Usuário                                                                                                                                  |
 |Descrição        |Desfazer o vínculo de amizade entre dois usuários                                                                                        |
@@ -82,6 +100,10 @@ Tabelas descritivas para cada um dos casos de uso da imagem acima
 |Fluxo Alternativo|                                                                                                                                         |
 |                 |---                                                                                                                                      |
 |                 |                                                                                                                                         |
+
+### RF006 - Iniciar conversa com um amigo
+|                 |                                                                                                                                         |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 |Caso de Uso:     |RF006 - Iniciar conversa com um amigo                                                                                                    |
 |Atores:          |Usuário                                                                                                                                  |
 |Descrição        |Inicia uma nova conversa com um amigo ja adicionado                                                                                      |
@@ -95,6 +117,10 @@ Tabelas descritivas para cada um dos casos de uso da imagem acima
 |Fluxo Alternativo|                                                                                                                                         |
 |                 |3.  [SISTEMA] Caso o usuário escolhido não seja amigo, mostrar a mensagem "Adicionar amigo, antes de inciar uma conversa".               |
 |                 |                                                                                                                                         |
+
+### RF007 - Excluir conversa com um amigo
+|                 |                                                                                                                                         |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 |Caso de Uso:     |RF007 - Excluir conversa com um amigo                                                                                                    |
 |Atores:          |Usuário                                                                                                                                  |
 |Descrição        |Apagar conversa entre dois usuários                                                                                                      |
@@ -107,6 +133,10 @@ Tabelas descritivas para cada um dos casos de uso da imagem acima
 |Fluxo Alternativo|                                                                                                                                         |
 |                 |---                                                                                                                                      |
 |                 |                                                                                                                                         |
+
+### RF008- Excluir conversa de grupo
+|                 |                                                                                                                                         |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 |Caso de Uso:     |RF008 - Excluir conversa de grupo                                                                                                        |
 |Atores:          |Usuário                                                                                                                                  |
 |Descrição        |Apaga uma conversa de um grupo que o usuário participa.                                                                                  |
@@ -118,6 +148,10 @@ Tabelas descritivas para cada um dos casos de uso da imagem acima
 |Fluxo Alternativo|                                                                                                                                         |
 |                 |---                                                                                                                                      |
 |                 |                                                                                                                                         |
+
+### RF009 - Criar grupo de conversa com amigos
+|                 |                                                                                                                                         |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 |Caso de Uso:     |RF009 - Criar grupo de conversa com amigos                                                                                               |
 |Atores:          |Usuário                                                                                                                                  |
 |Descrição        |Cria um grupo destinado a mensagens entre um conjunto de usuários                                                                        |
@@ -133,6 +167,10 @@ Tabelas descritivas para cada um dos casos de uso da imagem acima
 |Fluxo Alternativo|                                                                                                                                         |
 |                 |---                                                                                                                                      |
 |                 |                                                                                                                                         |
+
+### RF010 - Convidar um amigo para grupo
+|                 |                                                                                                                                         |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 |Caso de Uso:     |RF010 - Convidar um amigo para grupo                                                                                                     |
 |Atores:          |Usuário                                                                                                                                  |
 |Descrição        |O usuário com a tag "administrador" em um grupo convida um amigo para o grupo.                                                           |
@@ -148,6 +186,10 @@ Tabelas descritivas para cada um dos casos de uso da imagem acima
 |Fluxo Alternativo|                                                                                                                                         |
 |                 |---                                                                                                                                      |
 |                 |                                                                                                                                         |
+
+### RF011 - Sair de um grupo de conversa
+|                 |                                                                                                                                         |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 |Caso de Uso:     |RF011 - Sair de um grupo de conversa                                                                                                     |
 |Atores:          |Usuário                                                                                                                                  |
 |Descrição        |O usuário escolhe um grupo que deseja sair .                                                                                             |
@@ -161,6 +203,10 @@ Tabelas descritivas para cada um dos casos de uso da imagem acima
 |Fluxo Alternativo|                                                                                                                                         |
 |                 |---                                                                                                                                      |
 |                 |                                                                                                                                         |
+
+### RF012 - Remover um amigo do grupo
+|                 |                                                                                                                                         |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 |Caso de Uso:     |RF012 - Remover um amigo do grupo                                                                                                        |
 |Atores:          |Usuário                                                                                                                                  |
 |Descrição        |O usuário com a tag "administrador" escolhe um membro do grupo para remover.                                                             |
