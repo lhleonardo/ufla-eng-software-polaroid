@@ -1,0 +1,155 @@
+CREATE TABLE Usuario (
+	id_usuario BIGINT PRIMARY KEY AUTO_INCREMENT,
+	nome_completo VARCHAR(255) NOT NULL, 
+	username VARCHAR(35) NOT NULL UNIQUE, 
+	email TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE Conversa (
+	id_conversa BIGINT PRIMARY KEY AUTO_INCREMENT, 
+	id_usuario_proprietario INT NOT NULL, 
+	id_usuario_participante INT NOT NULL, 
+	data_criacao DATETIME NOT NULL DEFAULT NOW(),
+	situacao ENUM('ATIVA', 'INATIVA') DEFAULT 'ATIVA',
+	FOREIGN KEY (id_usuario_proprietario) REFERENCES Usuario(id_usuario), 
+	FOREIGN KEY (id_usuario_participante) REFERENCES Usuario(id_usuario), 
+	INDEX (id_usuario_proprietario)
+);
+
+CREATE TABLE Mensagem (
+	id_mensagem BIGINT PRIMARY KEY AUTO_INCREMENT,
+	id_usuario_autor BIGINT NOT NULL, 
+	conteudo TEXT NOT NULL, 
+	data_criacao DATE NOT NULL DEFAULT NOW(), 
+	data_entrega DATE, 
+	data_visualizacao DATE, 
+	FOREIGN KEY (id_usuario_autor) REFERENCES Usuario(id_usuario)
+);
+
+CREATE TABLE Historico (
+	id_conversa BIGINT NOT NULL,
+	id_mensagem BIGINT NOT NULL,
+	FOREIGN KEY (id_conversa) REFERENCES Conversa(id_conversa),
+	FOREIGN KEY (id_mensagem) REFERENCES Mensagem(id_mensagem),
+	PRIMARY KEY (id_conversa, id_mensagem),
+	INDEX (id_conversa)		
+);
+
+
+
+INSERT INTO Usuario (id_usuario, nome_completo, username, email) VALUES (1, "Leonardo Henrique de Braz", "lhleonardo", "lhleonardo05@gmail.com");
+INSERT INTO Usuario (id_usuario, nome_completo, username, email) VALUES (2, "Guilherme Henrique de Melo", "gjluffy", "devilnero2011@gmail.com");
+INSERT INTO Usuario (id_usuario, nome_completo, username, email) VALUES (3, "Guilherme Barbosa Ochikubo", "gbochikubo", "guilhermeochikubo@gmail.com");
+
+// Leonardo conversa com Guilherme
+INSERT INTO Conversa (id_conversa, id_usuario_proprietario, id_usuario_participante) VALUES (1, 1, 2);
+
+// Leonardo conversa com ochikubo
+INSERT INTO Conversa (id_conversa, id_usuario_proprietario, id_usuario_participante) VALUES (2, 1, 3);
+
+// Guilherme conversa com Leonardo
+INSERT INTO Conversa (id_conversa, id_usuario_proprietario, id_usuario_participante) VALUES (3, 2, 1);
+
+// Ochikubo conversa com Leonardo
+INSERT INTO Conversa (id_conversa, id_usuario_proprietario, id_usuario_participante) VALUES (4, 3, 1);
+
+// Ochikubo conversa com Guilherme
+INSERT INTO Conversa (id_conversa, id_usuario_proprietario, id_usuario_participante) VALUES (5, 3, 2);
+
+// Guilherme conversa com ochikubo
+INSERT INTO Conversa (id_conversa, id_usuario_proprietario, id_usuario_participante) VALUES (6, 2, 3);
+
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (1, 1, "E ai, mano.");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (2, 1, "Beleza?");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (3, 2, "Opa");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (4, 2, "Bom, e vc?");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (5, 1, "Tô bem também, mano.");
+
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (1, 1);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (1, 2);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (1, 3);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (1, 4);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (1, 5);
+
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (3, 1);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (3, 2);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (3, 3);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (3, 4);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (3, 5);
+
+
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (6, 1, "FALA JAPONES"); 
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (7, 1, "BOM DEMAIS?");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (8, 3, "E AI LEO");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (9, 3, "BONZIN, UAI");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (10, 3, "AMANHÃ CÊ VAI VIM AQUI EM CASA ESTUDAR?");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (11, 1, "VOU SIM, MANO");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (12, 1, "LÁ PELAS 16:00h EU DEVO APARECER");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (13, 1, "BELEZA?");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (14, 3, "SHOW");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (15, 3, "AVISA QUANDO ESTIVER PRONTO AMANHÃ");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (16, 3, "QUE EU TE BUSCO");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (17, 1, "BELEZA");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (18, 1, "TAMO JUNTO, MANITO");
+
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (1, 6);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (1, 7);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (1, 8);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (1, 9);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (1, 10);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (1, 11);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (1, 12);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (1, 13);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (1, 14);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (1, 15);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (1, 16);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (1, 17);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (1, 18);
+
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (4, 6);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (4, 7);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (4, 8);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (4, 9);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (4, 10);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (4, 11);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (4, 12);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (4, 13);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (4, 14);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (4, 15);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (4, 16);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (4, 17);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (4, 18);
+
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (19, 3, "EI, GUI");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (20, 3, "CHAMEI O LEO PARA ESTUDAR AQUI AMANHÃ AS 16:00h");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (21, 3, "ANIMA VIR TAMBÉM?");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (22, 2, "CLARO, MANO");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (23, 2, "TO PREOCUPADO COM A PROVA");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (24, 2, "TO COLADO AI AMANHÃ!");
+INSERT INTO Mensagem (id_mensagem, id_usuario_autor, conteudo) VALUES (25, 3, "SHOW ENTAO");
+
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (5, 19);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (5, 20);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (5, 21);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (5, 22);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (5, 23);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (5, 24);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (5, 25);
+
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (6, 19);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (6, 20);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (6, 21);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (6, 22);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (6, 23);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (6, 24);
+INSERT INTO Historico (id_conversa, id_mensagem) VALUES (6, 25);
+
+// Mostra as conversas, em ordem de envio, entre o Leonardo e Guilherme
+SELECT 
+	usuario.nome_completo as AUTOR, 
+	mensagem.conteudo AS CONTEUDO
+FROM 
+	Mensagem mensagem 
+JOIN Historico historico ON historico.id_mensagem = mensagem.id_mensagem
+JOIN Conversa conversa ON conversa.id_conversa = historico.id_conversa
+WHERE conversa.id_usuario_proprietario = 1 AND conversa.id_usuario_participante = 2;
