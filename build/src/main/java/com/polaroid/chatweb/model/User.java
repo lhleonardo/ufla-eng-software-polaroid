@@ -29,6 +29,7 @@ public class User {
 	private String ownerName;
 
 	@Column
+	@NotNull
 	private String password;
 
 	User() {
@@ -36,7 +37,7 @@ public class User {
 	}
 
 	public User(Long id, @NotNull String nickname, @Email @NotNull String email, @NotNull String ownerName,
-			String password) {
+			@NotNull String password) {
 		super();
 		this.id = id;
 		this.nickname = nickname;
