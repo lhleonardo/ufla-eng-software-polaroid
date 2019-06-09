@@ -17,7 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Entity
 public class User implements UserDetails {
 
-	// need this constant for serialize within session's 
+	// need this constant for serialize within session's
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -38,6 +38,7 @@ public class User implements UserDetails {
 	private String ownerName;
 
 	@Column
+	@NotNull
 	private String password;
 
 	User() {
@@ -45,7 +46,7 @@ public class User implements UserDetails {
 	}
 
 	public User(Long id, @NotNull String username, @Email @NotNull String email, @NotNull String ownerName,
-			String password) {
+			@NotNull String password) {
 		super();
 		this.id = id;
 		this.username = username;
