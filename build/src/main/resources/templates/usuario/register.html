@@ -1,30 +1,38 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Polaroid Interface</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/styles.min.css">
-</head>
-
-<body class="register-photo">
-    <div class="form-container" style="width: 458px;">
-        <form method="post" style="width: 314px;" novalidate="">
-            <h2 class="text-center"><strong>Criar</strong>&nbsp;minha conta.</h2>
-            <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Endereço de e-mail" inputmode="email" required=""><div class="invalid-feedback">Este e-mail já existe.</div></div>
-            <div class="form-group"><input class="form-control" type="text" name="nickname" placeholder="Nickname" required=""></div>
-            <div class="form-group"><input class="form-control" type="text" name="ownerName" placeholder="Nome completo" required=""></div>
-            <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Digite sua senha" required=""></div>
-            <div class="form-group"><input class="form-control" type="password" placeholder="Confirme sua senha" required=""></div>
-            <div class="form-group">
-                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" required="">Eu aceito os termo de licensa da rede Polaroid.</label></div>
-            </div>
-            <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Cadastrar</button></div><a class="already" href="login.html">Já possui uma conta? Vá para o login.</a></form>
-    </div>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-</body>
-
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>Polaroid Interface</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/styles.min.css">
+    </head>
+    <body class="register-photo">
+        <div class="form-container" style="width: 458px;">
+            <form method="post" style="width: 314px;" novalidate="">
+                <h2 class="text-center"><strong>Criar</strong>&nbsp;minha conta.</h2>
+                <div class="form-group"><input class="form-control" type="email" name="email"
+                        placeholder="Endereço de e-mail" inputmode="email" required="">
+                    <div class="invalid-feedback">Este e-mail já existe.</div>
+                </div>
+                <div class="form-group"><input class="form-control" type="text" name="username" placeholder="Nickname"
+                        required=""></div>
+                <div class="form-group"><input class="form-control" type="text" name="ownerName"
+                        placeholder="Nome completo" required=""></div>
+                <div class="form-group"><input class="form-control" type="password" name="password"
+                        placeholder="Digite sua senha" required=""></div>
+                <div class="form-group"><input class="form-control" type="password" placeholder="Confirme sua senha"
+                        required=""></div>
+                <div class="form-group">
+                    <div class="form-check"><label class="form-check-label"><input class="form-check-input"
+                                type="checkbox" required="">Eu aceito os termo de licensa da rede Polaroid.</label>
+                    </div>
+                </div>
+                <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Cadastrar</button></div>
+                <a class="already" href="/login">Já possui uma conta? Vá para o login.</a>
+            </form>
+        </div>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </body>
 </html>

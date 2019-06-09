@@ -1,6 +1,7 @@
 package com.polaroid.chatweb.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -25,15 +26,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 		http
 			.csrf().disable()
 			.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/", "/register").permitAll()
+				.antMatchers(HttpMethod.GET, "/register").permitAll()
 				.antMatchers(HttpMethod.POST, "/register").permitAll()
 			.anyRequest().authenticated()
 				.and()
 					.formLogin()
-						.loginPage("/login").permitAll()
+						.loginPage("/login")
+						.defaultSuccessUrl("/")
+						.permitAll()
 				.and()
 					.logout()
-						.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+						.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+						.logoutSuccessUrl("/login");
 	}
 	
 	@Override
@@ -48,5 +52,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 		web
 			.ignoring()
 				.antMatchers("/static/**", "/css/**", "/js/**");
+	}
+	
+	@Bean
+	public BCryptPasswordEncoder encoder() {
+		return new BCryptPasswordEncoder();
 	}
 }

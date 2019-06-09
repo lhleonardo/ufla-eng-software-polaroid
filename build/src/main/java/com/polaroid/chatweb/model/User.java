@@ -70,6 +70,10 @@ public class User implements UserDetails {
 	public String getPassword() {
 		return password;
 	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -98,7 +102,7 @@ public class User implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return false;
+		return true;
 	}
 
 }
