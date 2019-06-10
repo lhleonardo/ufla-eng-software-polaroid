@@ -3,13 +3,13 @@ package com.polaroid.chatweb.controller;
 import java.util.Optional;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -60,14 +60,16 @@ public class UserController {
         
         sender.sendEmail(mail);
 
-		return new ModelAndView("redirect:/login");
+		return new ModelAndView("redirect:/login?registered");
 	}
 	
-	@RequestMapping(path = "/confirm-account?token={token}")
-	public ModelAndView confirmRegister(@PathParam("token") String token) {
+	@RequestMapping(value = "/confirm-account/{token}", method=RequestMethod.GET)
+	public ModelAndView confirmRegister(@PathVariable("token") String token) {
+		System.out.println(token);
 		Optional<ConfirmationToken> result = this.tokenRepository.findByToken(token);
-		ModelAndView view = new ModelAndView("redirect:/login");
 		
+		ModelAndView view = new ModelAndView("redirect:/login");
+		System.out.println(result.isEmpty());
 		if (result.isEmpty()) {
 			view.addObject("tokenValidation", false);
 			return view;

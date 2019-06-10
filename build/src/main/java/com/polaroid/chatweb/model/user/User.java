@@ -41,8 +41,8 @@ public class User implements UserDetails {
 	@NotNull
 	private String password;
 	
-	@Column
-	private boolean isValidate;
+	@Column(nullable = false)
+	private boolean isValidated;
 
 	User() {
 
@@ -56,7 +56,7 @@ public class User implements UserDetails {
 		this.email = email;
 		this.ownerName = ownerName;
 		this.password = password;
-		this.isValidate = false;
+		this.isValidated = false;
 	}
 
 	public Long getId() {
@@ -79,8 +79,12 @@ public class User implements UserDetails {
 		this.password = password;
 	}
 	
-	public void validate() {
-		this.isValidate = true;
+	public void validate() { 
+		this.isValidated = true;
+	}
+	
+	public boolean isEmailVerified() {
+		return this.isValidated;
 	}
 
 	@Override
@@ -110,7 +114,7 @@ public class User implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return this.isValidate;
+		return this.isValidated;
 	}
 
 }

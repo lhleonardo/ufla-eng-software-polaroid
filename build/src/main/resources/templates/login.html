@@ -9,9 +9,7 @@
     </head>
     <body class="register-photo">
         <div class="form-container h-100 row align-items-center">
-            <form method="post">
-                <h2 class="text-center">Autentique-se</h2>
-				<p class="text-center">Para continuar você precisa estar conectado.</p>
+            <form method="post" th:object="${user}">
 				<div th:if="${param.error}" class="alert alert-danger alert-dismissible fade show"
 					role="alert">
 					 Usuário e/ou senha estão incorretos.
@@ -28,17 +26,43 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="form-group"><input class="form-control" type="text" name="username"
-	                        placeholder="E-mail ou nickname"></div>
-	                <div class="form-group"><input class="form-control" type="password" name="password"
-	                        placeholder="Digite sua senha"></div>
-	                <div class="form-group">
-	                    <div class="form-check"><label class="form-check-label"><input class="form-check-input"
-	                                type="checkbox">Permanecer conectado?</label></div>
-	                </div>
-	                <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Entrar</button></div><a
-	                    class="already" href="/register">Não tem uma conta? Crie uma aqui.</a>
-            </form>
+				<div th:if="${param.registered}" class="alert alert-warning alert-dismissible fade show"
+					role="alert">
+					<strong>Conta criada! </strong>Confirme seu e-mail para acessar a plataforma.
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				
+				<div th:if="${param.unverifiedEmail}" class="alert alert-warning alert-dismissible fade show"
+					role="alert">
+					<strong>Ainda não!</strong>Confirme seu e-mail para acessar a plataforma.
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<h2 class="text-center">Autentique-se</h2>
+				<p class="text-center">Para continuar você precisa estar conectado.</p>
+				<div class="form-group">
+					<input class="form-control" type="text" name="username" placeholder="E-mail ou nickname">
+				</div>
+	            <div class="form-group">
+	            	<input class="form-control" type="password" name="password" placeholder="Digite sua senha">
+				</div>
+				<div class="form-group">
+					<div class="form-check">
+						<label class="form-check-label"><input
+							class="form-check-input" type="checkbox">Permanecer
+							conectado?</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-primary btn-block" type="submit">Entrar</button>
+				</div>
+				<a class="already" href="/register">Não tem uma conta? Crie uma aqui.</a>
+			</form>
         </div>
         <script th:src="@{js/jquery.min.js}"></script>
         <script th:src="@{js/bootstrap.min.js}"></script>

@@ -28,6 +28,9 @@ public class ConfirmationToken {
 	@JoinColumn(nullable = false, name = "user_id")
 	private User user;
 
+	ConfirmationToken() {
+	}
+	
 	public ConfirmationToken(User user) {
 		this.user = user;
 		this.createdAt = LocalDateTime.now();
