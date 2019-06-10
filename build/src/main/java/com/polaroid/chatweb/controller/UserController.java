@@ -1,13 +1,25 @@
 package com.polaroid.chatweb.controller;
 
+import java.util.Optional;
+
+import javax.validation.Valid;
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.polaroid.chatweb.model.User;
-import com.polaroid.chatweb.repository.UserRepository;
+import com.polaroid.chatweb.model.user.ConfirmationToken;
+import com.polaroid.chatweb.model.user.User;
+import com.polaroid.chatweb.repository.user.TokenConfirmationRepository;
+import com.polaroid.chatweb.repository.user.UserRepository;
+import com.polaroid.chatweb.service.EmailService;
 
 @Controller
 public class UserController {
@@ -16,18 +28,59 @@ public class UserController {
 	private BCryptPasswordEncoder encoder;
 	
 	@Autowired
-	private UserRepository rep;
+	private UserRepository userRepository;
+	
+	@Autowired
+	private EmailService sender;
+	
+	@Autowired
+	private TokenConfirmationRepository tokenRepository;
 	
 	@RequestMapping(value ="/register", method = RequestMethod.GET)
-	public String showForm(){
-		return "usuario/register";
+	public ModelAndView showForm(User probablyUser){
+		ModelAndView view = new ModelAndView("usuario/register");
+		view.addObject("user", probablyUser);
+		return view;
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String form(User user) {
+	public ModelAndView form(@Valid User user, BindingResult binding, RedirectAttributes attributes) {
 		user.setPassword(encoder.encode(user.getPassword()));
-		rep.save(user);
-		return "redirect:/login";
+		userRepository.save(user);
+		
+		ConfirmationToken token = new ConfirmationToken(user);
+		tokenRepository.save(token);
+		
+		SimpleMailMessage mail = new SimpleMailMessage();
+		mail.setTo(user.getEmail());
+        mail.setSubject("[POLAROID] Cadastro concluído! ");
+        mail.setFrom("Leonardo Braz <lhleonardo05@gmail.com>");
+        mail.setText("Para confirmar seu cadastro, acesse o link: "
+        +"http://localhost:8080/confirm-account?token="+token.getToken());
+        
+        sender.sendEmail(mail);
+
+		return new ModelAndView("redirect:/login");
+	}
+	
+	@RequestMapping(path = "/confirm-account?token={token}")
+	public ModelAndView confirmRegister(@PathParam("token") String token) {
+		Optional<ConfirmationToken> result = this.tokenRepository.findByToken(token);
+		ModelAndView view = new ModelAndView("redirect:/login");
+		
+		if (result.isEmpty()) {
+			view.addObject("tokenValidation", false);
+			return view;
+		} 
+		
+		User userConfirmed = result.get().getUser();
+		userConfirmed.validate();
+		
+		this.userRepository.save(userConfirmed);
+		
+		view.addObject("tokenValidation", true);
+		
+		return view;
 	}
 
 }

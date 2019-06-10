@@ -11,14 +11,15 @@
         <div class="form-container" style="width: 458px;">
             <form method="post" style="width: 314px;" novalidate="">
                 <h2 class="text-center"><strong>Criar</strong>&nbsp;minha conta.</h2>
-                <div class="form-group"><input class="form-control" type="email" name="email"
-                        placeholder="Endereço de e-mail" inputmode="email" required="">
-                    <div class="invalid-feedback">Este e-mail já existe.</div>
-                </div>
+                <div class="invalid-feedback">Este e-mail já existe.</div>
                 <div class="form-group"><input class="form-control" type="text" name="username" placeholder="Nickname"
                         required=""></div>
-                <div class="form-group"><input class="form-control" type="text" name="ownerName"
-                        placeholder="Nome completo" required=""></div>
+				<div class="form-group">
+					<input class="form-control" type="text" name="email"
+						placeholder="Email" required="">
+				</div>
+				<div class="form-group"><input class="form-control" type="text" name="ownerName"
+	                        placeholder="Nome completo" required=""></div>
                 <div class="form-group"><input class="form-control" type="password" name="password"
                         placeholder="Digite sua senha" required=""></div>
                 <div class="form-group"><input class="form-control" type="password" placeholder="Confirme sua senha"
@@ -34,5 +35,6 @@
         </div>
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/form-validation.js"></script>
     </body>
 </html>

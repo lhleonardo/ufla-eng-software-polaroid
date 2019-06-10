@@ -21,6 +21,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private AuthenticatorService authenticator;
 	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -28,7 +31,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.authorizeRequests()
 				.antMatchers(HttpMethod.GET, "/register").permitAll()
 				.antMatchers(HttpMethod.POST, "/register").permitAll()
-			.anyRequest().authenticated()
+			.antMatchers("/").authenticated()
 				.and()
 					.formLogin()
 						.loginPage("/login")
@@ -36,15 +39,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 						.permitAll()
 				.and()
 					.logout()
-						.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-						.logoutSuccessUrl("/login");
+						.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 	}
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth
 			.userDetailsService(this.authenticator)
-			.passwordEncoder(new BCryptPasswordEncoder());
+			.passwordEncoder(encoder);
 	}
 	
 	@Override
