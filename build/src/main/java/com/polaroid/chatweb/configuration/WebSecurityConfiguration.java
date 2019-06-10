@@ -3,7 +3,7 @@ package com.polaroid.chatweb.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -16,19 +16,22 @@ import com.polaroid.chatweb.service.AuthenticatorService;
 
 @Configuration
 @EnableWebSecurity
+@EnableAsync
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	private AuthenticatorService authenticator;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.csrf().disable()
 			.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/register").permitAll()
-				.antMatchers(HttpMethod.POST, "/register").permitAll()
-			.anyRequest().authenticated()
+				.antMatchers("/register", "/confirm-account").permitAll()
+			.antMatchers("/").authenticated()
 				.and()
 					.formLogin()
 						.loginPage("/login")
@@ -36,15 +39,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 						.permitAll()
 				.and()
 					.logout()
-						.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-						.logoutSuccessUrl("/login");
+						.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 	}
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth
 			.userDetailsService(this.authenticator)
-			.passwordEncoder(new BCryptPasswordEncoder());
+			.passwordEncoder(encoder);
 	}
 	
 	@Override

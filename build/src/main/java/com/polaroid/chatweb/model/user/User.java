@@ -1,4 +1,4 @@
-package com.polaroid.chatweb.model;
+package com.polaroid.chatweb.model.user;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -51,6 +51,9 @@ public class User implements UserDetails {
 
 	@Column
 	private String password;
+	
+	@Column(nullable = false)
+	private boolean isValidated;
 
 	User() {
 
@@ -64,6 +67,7 @@ public class User implements UserDetails {
 		this.email = email;
 		this.ownerName = ownerName;
 		this.password = password;
+		this.isValidated = false;
 	}
 
 	public Long getId() {
@@ -88,6 +92,14 @@ public class User implements UserDetails {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public void validate() { 
+		this.isValidated = true;
+	}
+	
+	public boolean isEmailVerified() {
+		return this.isValidated;
 	}
 
 	@Override
@@ -117,7 +129,7 @@ public class User implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return this.isValidated;
 	}
 
 }
