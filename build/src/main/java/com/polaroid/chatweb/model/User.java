@@ -33,12 +33,23 @@ public class User implements UserDetails {
 	@NotNull
 	private String email;
 
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+
 	@Column
 	@NotNull
 	private String ownerName;
 
 	@Column
-	@NotNull
 	private String password;
 
 	User() {
@@ -71,6 +82,10 @@ public class User implements UserDetails {
 		return password;
 	}
 	
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
