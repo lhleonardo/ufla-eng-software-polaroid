@@ -56,9 +56,9 @@ public class UserController {
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setTo(user.getEmail());
         mail.setSubject("[POLAROID] Cadastro concluído! ");
-        mail.setFrom("Leonardo Braz <lhleonardo05@gmail.com>");
+        mail.setFrom("Polaroid <polaroidchat@gmail.com>");
         mail.setText("Para confirmar seu cadastro, acesse o link: "
-        +"http://localhost:8080/confirm-account?token="+token.getToken());
+        +"http://localhost:8080/confirm-account/"+token.getToken());
         
         sender.sendEmail(mail);
 
@@ -91,7 +91,6 @@ public class UserController {
 	public ModelAndView changeAccount(@PathVariable("data") String data) {
 		Optional<User> user = userRepository.findByUsername(data);
 		if (user.isEmpty()) {
-			//TRATAR ERRO
 			return new ModelAndView("redirect:/login");
 			//throw new UsernameNotFoundException(String.format("Usuário % não existe.",data));
 		}
