@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -42,7 +43,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.csrf().disable()
 			.authorizeRequests()
 				.antMatchers("/register", "/confirm-account").permitAll()
-			.antMatchers("/").authenticated()
+			.antMatchers("/", "/profile/**").authenticated()
 				.and()
 					.formLogin()
 						.loginPage("/login")
@@ -76,5 +77,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Bean
 	public BCryptPasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
+	}
+	
+	@Bean
+	public AuthenticationManager getAuthenticationManager() throws Exception {
+		return super.authenticationManagerBean();
 	}
 }

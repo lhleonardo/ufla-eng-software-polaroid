@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>Polaroid Interface</title>
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/css/styles.min.css}">
+        <link rel="stylesheet" th:href="@{/css/sweetalert.min.css}">
+        <style>
+        	.invalid-password {
+        		color: red;
+        	}
+        </style>
+	</head>
+	<body class="register-photo">
+        <div class="form-container" style="width: 458px;">
+		<form method="post" style="width: 314px;" th:object="${user}">
+			<input type="hidden" th:value="${user.id}" readonly name="id" />
+			<h2 class="text-center">
+				<strong>Apagar</strong>&nbsp;minha conta.
+			</h2>
+			<p class="text-center">
+				Seu e-mail: <span th:text="${user.email}"></span>
+			</p>
+			<div class="form-group">
+				<input class="form-control"
+					placeholder="Digite sua senha para continuar" type="password"
+					name="password" required="">
+					
+				<p th:if="${erro}" class="invalid-password">Senha incorreta</p>
+			</div>
+
+			<div class="custom-control custom-checkbox">
+				<input required type="checkbox" class="custom-control-input"
+					id="customCheck1"> <label class="custom-control-label"
+					for="customCheck1">Aceito as condições de exclusão de conta.</label>
+			</div>
+
+			<div class="form-group">
+				<button class="btn btn-primary btn-block" type="submit">Confirmar
+					exclusão</button>
+			</div>
+			<hr>
+			<div class="alert alert-danger" role="alert">
+				<h4 class="alert-heading">Atenção!</h4>
+				<p>Esta operação irá apagar sua conta da plataforma e não poderá
+					ser recuperada.</p>
+				<hr>
+				<p class="mb-0">Suas conversas e vínculos de amizade serão
+					perdidos.</p>
+			</div>
+		</form>
+	</div>
+        <script th:src="@{/js/jquery.min.js}"></script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+        <script th:src="@{/js/form-validation.js}"></script>
+        <script th:src="@{/js/sweetalert.min.js}"></script>
+        
+    </body>
+</html>

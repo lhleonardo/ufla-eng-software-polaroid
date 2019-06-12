@@ -6,6 +6,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -24,13 +26,14 @@ import com.polaroid.chatweb.service.EmailService;
 
 /**
  * Controlador de requisições de usuários
+ * 
  * @author Guilherme Melo e Leonardo Braz
  * @version 1.0
  *
  */
 @Controller
 public class UserController {
-		
+
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 
@@ -95,25 +98,21 @@ public class UserController {
 
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping(value = "/profile/delete", method = RequestMethod.GET)
 	public ModelAndView deleteAccount(Authentication auth) {
 		ModelAndView mv = new ModelAndView("usuario/deleteAccount");
 		mv.addObject("user", (User) auth.getPrincipal());
 		return mv;
 	}
-	
+
 	@RequestMapping(value = "/profile/delete", method = RequestMethod.POST)
-	public String deleteAccountPost(Authentication auth,@RequestParam("password") String password, RedirectAttributes attr) {
-		String encodePassword = encoder.encode(password);
+	public String deleteAccountPost(Authentication auth, @RequestParam("password") String password,
+			RedirectAttributes attr) {
 		User user = (User) auth.getPrincipal();
-		if (user.getPassword().equals(encodePassword)) {
-			userRepository.delete(user);
-			return "redirect:/logout";
-		}else {
-			attr.addFlashAttribute("erro", "senha incorreta");
-			return "redirect:/profile/delete";
-		}
+
+		userRepository.deleteById(user.getId());
+		return "redirect:/logout";
 	}
 
 }

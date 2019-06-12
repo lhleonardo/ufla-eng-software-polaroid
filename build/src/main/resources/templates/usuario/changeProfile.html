@@ -16,14 +16,13 @@
 		                
 		                <div class="form-group"><input class="form-control"  type="email" name="email"
 		                        th:value = ${user.email} inputmode="email" required="">
-		                    <div class="invalid-feedback">Este e-mail já existe.</div>
 		                </div>
 		                <div class="form-group"><input class="form-control" th:value = "${user.username}" type="text" name="username"
 		                        required=""></div>
 		                <div class="form-group"><input class="form-control" th:value = "${user.ownerName}" type="text" name="ownerName"
 		                         required=""></div>
 		                <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Alterar dados</button></div>
-		                <a id="apagar-conta" href="#" class="already">Excluir minha conta</a>
+		                <a id="apagar-conta" th:href="@{/profile/delete}" class="already">Excluir minha conta</a>
             </form>
         </div>
         
@@ -32,24 +31,5 @@
         <script th:src="@{/js/bootstrap.min.js}"></script>
         <script th:src="@{/js/form-validation.js}"></script>
         <script th:src="@{/js/sweetalert.min.js}"></script>
-        <script>
-        	var botaoApagar = document.getElementById("apagar-conta");
-        	botaoApagar.onclick = function() {
-        		Swal.fire({
-	        	  title: 'Deseja realmente excluir sua conta?',
-	        	  text: "Ao apagar sua conta, a operação não pode ser desfeita!",
-	        	  type: 'warning',
-	        	  showCancelButton: true,
-	        	  confirmButtonColor: '#3085d6',
-	        	  cancelButtonColor: '#d33',
-	        	  confirmButtonText: 'Sim, apagar.'
-	        	}).then((result) => {
-	        	  if (result.value) {
-	        		  console.log(window.location.host + "/profile/delete");
-		        	  window.location.href = window.location.host + "/profile/delete";        
-	        	  }
-	        	});
-        	}
-        </script>
     </body>
 </html>
