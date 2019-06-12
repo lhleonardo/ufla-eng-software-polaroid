@@ -33,25 +33,13 @@ public class User implements UserDetails {
 	@NotNull
 	private String email;
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void setOwnerName(String ownerName) {
-		this.ownerName = ownerName;
-	}
-
 	@Column
 	@NotNull
 	private String ownerName;
 
 	@Column
 	private String password;
-	
+
 	@Column(nullable = false)
 	private boolean isValidated;
 
@@ -85,7 +73,7 @@ public class User implements UserDetails {
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -93,11 +81,11 @@ public class User implements UserDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	public void validate() { 
+
+	public void validate() {
 		this.isValidated = true;
 	}
-	
+
 	public boolean isEmailVerified() {
 		return this.isValidated;
 	}
@@ -130,6 +118,18 @@ public class User implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return this.isValidated;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
 	}
 
 }
