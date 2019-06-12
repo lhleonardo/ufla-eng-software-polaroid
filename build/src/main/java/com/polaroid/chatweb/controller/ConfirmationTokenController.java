@@ -20,6 +20,7 @@ public class ConfirmationTokenController {
 	@Autowired
 	private ConfirmationTokenRepository tokenRepository;
 	
+	@Autowired
 	private UserRepository userRepository;
 	
 	@RequestMapping(value = "/confirm-account/{token}", method = RequestMethod.GET)
