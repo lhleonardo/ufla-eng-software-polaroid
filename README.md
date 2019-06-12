@@ -12,15 +12,15 @@ Cada usuário da plataforma terá um nickname único e as conversas só são pos
 ## Estrutura do Repositório
 
  - **docs**: Contém toda a documentação do projeto
-	 - **1.requisitos**
-	 - **2.casos de uso**
-	 - **3.interface**
-	 - **4.diagrama de classe**
-	 - 5.**diagrama de sequência**
-	 - 6.**database**
-	 - 7.**diagrama de implantação**
+	 - **1.requisitos**: Documento de requisitos e levantamento de requisitos
+	 - **2.casos de uso**: Casos de uso e funcionalidades
+	 - **3.interface**: protótipos iniciais de interface
+	 - **4.diagrama de classe**: modelagem de classes de modelo
+	 - 5.**diagrama de sequência**: modelagem de iterações entre classes e relacionamentos 
+	 - 6.**database**: esquema de banco de dados e sua modelagem
+	 - 7.**diagrama de implantação**: regras e estrutura de implantação
 - **build**: pasta com código-fonte da aplicação
-- teste
+
 
 ## Tecnologia de implementação
 
