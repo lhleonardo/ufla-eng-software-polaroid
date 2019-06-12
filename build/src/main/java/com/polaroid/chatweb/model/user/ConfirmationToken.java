@@ -11,6 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+/**
+ * Modelo de representação de tokens, para confirmação de e-mails.
+ * @author lhleo
+ *
+ */
 @Entity
 public class ConfirmationToken {
 
@@ -31,6 +36,10 @@ public class ConfirmationToken {
 	ConfirmationToken() {
 	}
 	
+	/**
+	 * Criar um token referente a uma confirmação de usuário
+	 * @param user usuário a ser confirmado
+	 */
 	public ConfirmationToken(User user) {
 		this.user = user;
 		this.createdAt = LocalDateTime.now();

@@ -11,12 +11,20 @@ import org.springframework.stereotype.Service;
 import com.polaroid.chatweb.model.user.User;
 import com.polaroid.chatweb.repository.user.UserRepository;
 
+/**
+ * Classe que gerencia a autenticação
+ * @author lhleo
+ *
+ */
 @Service
 public class AuthenticatorService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository repository;
 
+	/**
+	 * Método responsável por buscar o usuário que terá autenticação
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String loginInformed) throws UsernameNotFoundException {
 		Optional<User> result = repository.findByUsernameOrEmail(loginInformed, loginInformed);
