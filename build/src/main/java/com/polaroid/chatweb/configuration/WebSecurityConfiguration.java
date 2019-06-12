@@ -14,6 +14,14 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.polaroid.chatweb.service.AuthenticatorService;
 
+/**
+ * Classe de configuração do Spring. Todas as configurações quanto estruturais
+ * do projeto encontram-se aqui
+ * 
+ * @author Guilherme Melo e Leonardo Braz
+ * @version 1.0
+ *
+ */
 @Configuration
 @EnableWebSecurity
 @EnableAsync
@@ -25,6 +33,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
+	/**
+	 * Configuração de rotas e acesso de autenticação
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -42,6 +53,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 						.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 	}
 	
+	/**
+	 * Configuração de provedor de conta de autenticação via banco de dados
+	 */
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth
@@ -49,6 +63,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.passwordEncoder(encoder);
 	}
 	
+	/**
+	 * Definição de acesso público de conteúdo estático (css e js)
+	 */
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web

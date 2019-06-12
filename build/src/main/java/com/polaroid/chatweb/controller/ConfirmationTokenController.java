@@ -14,18 +14,24 @@ import com.polaroid.chatweb.model.user.User;
 import com.polaroid.chatweb.repository.user.ConfirmationTokenRepository;
 import com.polaroid.chatweb.repository.user.UserRepository;
 
+/**
+ * Controlador de tokens de confirmação 
+ * @author Guilherme Melo e Leonardo Braz
+ * @version 1.0
+ *
+ * 
+ */
 @Controller
 public class ConfirmationTokenController {
-	
+
 	@Autowired
 	private ConfirmationTokenRepository tokenRepository;
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@RequestMapping(value = "/confirm-account/{token}", method = RequestMethod.GET)
 	public ModelAndView confirmRegister(@PathVariable("token") String token) {
-		System.out.println(token);
 		Optional<ConfirmationToken> result = this.tokenRepository.findByToken(token);
 
 		ModelAndView view = new ModelAndView("redirect:/login");

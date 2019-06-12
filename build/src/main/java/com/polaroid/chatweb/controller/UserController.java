@@ -21,6 +21,12 @@ import com.polaroid.chatweb.repository.user.ConfirmationTokenRepository;
 import com.polaroid.chatweb.repository.user.UserRepository;
 import com.polaroid.chatweb.service.EmailService;
 
+/**
+ * Controlador de requisições de usuários
+ * @author Guilherme Melo e Leonardo Braz
+ * @version 1.0
+ *
+ */
 @Controller
 public class UserController {
 
@@ -73,19 +79,19 @@ public class UserController {
 	@RequestMapping(value = "/profile/change", method = RequestMethod.POST)
 	public String changeAccountPost(User user, Authentication auth) {
 		Optional<User> optUser = userRepository.findById(user.getId());
-		
+
 		User user1 = optUser.get();
 		user1.setEmail(user.getEmail());
 		user1.setOwnerName(user.getOwnerName());
 		user1.setUsername(user.getUsername());
-		
+
 		userRepository.save(user1);
 
 		User userLogged = (User) auth.getPrincipal();
 		userLogged.setUsername(user1.getUsername());
 		userLogged.setOwnerName(user1.getOwnerName());
 		userLogged.setEmail(user1.getEmail());
-		
+
 		return "redirect:/";
 	}
 
