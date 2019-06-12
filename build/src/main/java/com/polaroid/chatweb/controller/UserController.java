@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,7 +30,7 @@ import com.polaroid.chatweb.service.EmailService;
  */
 @Controller
 public class UserController {
-
+		
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 
@@ -93,6 +94,26 @@ public class UserController {
 		userLogged.setEmail(user1.getEmail());
 
 		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/profile/delete", method = RequestMethod.GET)
+	public ModelAndView deleteAccount(Authentication auth) {
+		ModelAndView mv = new ModelAndView("usuario/deleteAccount");
+		mv.addObject("user", (User) auth.getPrincipal());
+		return mv;
+	}
+	
+	@RequestMapping(value = "/profile/delete", method = RequestMethod.POST)
+	public String deleteAccountPost(Authentication auth,@RequestParam("password") String password, RedirectAttributes attr) {
+		String encodePassword = encoder.encode(password);
+		User user = (User) auth.getPrincipal();
+		if (user.getPassword().equals(encodePassword)) {
+			userRepository.delete(user);
+			return "redirect:/logout";
+		}else {
+			attr.addFlashAttribute("erro", "senha incorreta");
+			return "redirect:/profile/delete";
+		}
 	}
 
 }
