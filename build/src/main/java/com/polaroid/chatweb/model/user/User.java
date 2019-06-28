@@ -1,7 +1,9 @@
 package com.polaroid.chatweb.model.user;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -49,7 +51,7 @@ public class User implements UserDetails {
 	private boolean isValidated;
 
 	@OneToMany
-	private List<Chat> chats;
+	private HashMap<User, Boolean> friends;
 
 	User() {
 	}
@@ -67,6 +69,38 @@ public class User implements UserDetails {
 
 	public Long getId() {
 		return id;
+	}
+	
+	public void acceptFriend(User user) {
+		friends.replace(user, true);
+	}
+	
+	public void rejectFriend(User user) {
+		friends.remove(user);
+	}
+
+	public List<User> getFriends() {
+		ArrayList<User> amigos = new ArrayList<User>();
+		for (User user : friends.keySet()) {
+			if (friends.get(user)) {
+				amigos.add(user);
+			}
+		}
+		return amigos;
+	}
+
+	public List<User> getRequisicoes() {
+		ArrayList<User> requisicoes = new ArrayList<User>();
+		for (User user : friends.keySet()) {
+			if (!(friends.get(user))) {
+				requisicoes.add(user);
+			}
+		}
+		return requisicoes;
+	}
+	
+	public void sendFriendRequest(User user) {
+		friends.put(user, false);
 	}
 
 	public String getEmail() {
@@ -170,8 +204,5 @@ public class User implements UserDetails {
 		return true;
 	}
 
-	public List<Chat> getChats() {
-		return chats;
-	}
-	
+
 }
