@@ -44,7 +44,6 @@ public class User implements UserDetails {
 	private boolean isValidated;
 
 	User() {
-
 	}
 
 	public User(Long id, @NotNull String username, @Email @NotNull String email, @NotNull String ownerName,

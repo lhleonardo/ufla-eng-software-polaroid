@@ -1,4 +1,4 @@
-package com.polaroid.chatweb.controller;
+package com.polaroid.chatweb.controller.user;
 
 import java.util.Optional;
 
