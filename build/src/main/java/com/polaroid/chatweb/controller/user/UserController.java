@@ -1,6 +1,7 @@
 package com.polaroid.chatweb.controller.user;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -10,12 +11,13 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -115,55 +117,65 @@ public class UserController {
 		userRepository.deleteById(user.getId());
 		return "redirect:/logout";
 	}
-	
-	@RequestMapping(value = "/searchNewFriends", method = RequestMethod.GET)
-	public ModelAndView searchFriends(Authentication auth){
+
+	@RequestMapping(value = "/profile/friends/search", method = RequestMethod.GET)
+	public ModelAndView searchFriends(Authentication auth) {
 		ModelAndView mv = new ModelAndView("usuario/sendFriendRequest");
-		ArrayList<User> list = (ArrayList<User>)userRepository.findAll();
-		list.remove(auth.getPrincipal());
-		mv.addObject("users",list);
+		ArrayList<User> list = (ArrayList<User>) userRepository.findAll();
+		User user = userRepository.findById(((User) auth.getPrincipal()).getId()).get();
+		list.remove(user);
+		list.removeAll(user.getFriends());
+		mv.addObject("users", list);
 		return mv;
 	}
-	
-	@RequestMapping(value = "/searchNewFriends/{newFriendNick}", method = RequestMethod.POST)
-	public String sendRequestToFriend(Authentication auth,@PathVariable("newFriendNick") String nickName){
+
+	@RequestMapping(value = "/profile/friends/add/{newFriendNick}", method = RequestMethod.POST)
+	public String sendRequestToFriend(Authentication auth, @PathVariable("newFriendNick") String nickName) {
 		User user = (User) auth.getPrincipal();
-		Optional<User> optUser = userRepository.findByUsernameOrEmail(nickName,nickName);
+		Optional<User> optUser = userRepository.findByUsernameOrEmail(nickName, nickName);
 		user.sendFriendRequest(optUser.get());
 		userRepository.save(user);
-		
-		return "redirect:/searchNewFriends";
+
+		return "redirect:/profile/friends/search";
 	}
-	
-	
-	
-	
-	@RequestMapping(value = "/friend_request",method = RequestMethod.GET)
+
+	@RequestMapping(value = "/profile/requests/", method = RequestMethod.GET)
 	public ModelAndView showFriends(Authentication auth) {
 		ModelAndView mv = new ModelAndView("usuario/addFriend");
 		User user = (User) auth.getPrincipal();
-		mv.addObject("amigos",user.getRequisicoes());
+		user = this.userRepository.findById(user.getId()).get();
+		mv.addObject("invitations", user.getRequisicoes());
 		return mv;
 	}
-	
-	@RequestMapping(value = "/friend_request/accept/{friendNick}",method = RequestMethod.POST)
-	public String accepetFriend(@PathVariable("friendNick") String nickName,Authentication auth) {
+
+	@RequestMapping(value = "/profile/requests/{friendNick}/accept", method = RequestMethod.GET)
+	public String accepetFriend(@PathVariable("friendNick") String nickName, Authentication auth) {
 		User user = (User) auth.getPrincipal();
-		Optional<User> optUser = userRepository.findByUsernameOrEmail(nickName,nickName);
+		Optional<User> optUser = userRepository.findByUsernameOrEmail(nickName, nickName);
+		user = userRepository.findById(user.getId()).get();
 		user.acceptFriend(optUser.get());
 		userRepository.save(user);
-		
-		return "redirect:/friend-requests";
+
+		return "redirect:/profile/requests/";
 	}
-	
-	@RequestMapping(value = "/friend_request/reject/{friendNick}",method = RequestMethod.POST)
-	public String rejecttFriend(@PathVariable("friendNick") String nickName,Authentication auth) {
+
+	@RequestMapping(value = "/profile/requests/{friendNick}/reject", method = RequestMethod.GET)
+	public String rejecttFriend(@PathVariable("friendNick") String nickName, Authentication auth) {
 		User user = (User) auth.getPrincipal();
-		Optional<User> optUser = userRepository.findByUsernameOrEmail(nickName,nickName);
+		Optional<User> optUser = userRepository.findByUsernameOrEmail(nickName, nickName);
 		user.rejectFriend(optUser.get());
 		userRepository.save(user);
+
+		return "redirect:/profile/requests/";
+	}
+	
+	
+	@GetMapping(path = "/friends/{user}", produces = "application/json")
+	@ResponseBody
+	public List<User> getFriendsFrom(@PathVariable("user") String username) {
+		User user = this.userRepository.findByUsernameOrEmail(username, username).get();
 		
-		return "redirect:/friend-requests";
+		return user.getFriends();
 	}
 
 }
