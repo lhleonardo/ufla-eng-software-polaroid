@@ -118,10 +118,10 @@ public class UserController {
 	
 	@RequestMapping(value = "/searchNewFriends", method = RequestMethod.GET)
 	public ModelAndView searchFriends(Authentication auth){
-		ModelAndView mv = new ModelAndView();
+		ModelAndView mv = new ModelAndView("usuario/sendFriendRequest");
 		ArrayList<User> list = (ArrayList<User>)userRepository.findAll();
 		list.remove(auth.getPrincipal());
-		mv.addObject("usuarios",list);
+		mv.addObject("users",list);
 		return mv;
 	}
 	
@@ -140,7 +140,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/friend_request",method = RequestMethod.GET)
 	public ModelAndView showFriends(Authentication auth) {
-		ModelAndView mv = new ModelAndView();
+		ModelAndView mv = new ModelAndView("usuario/addFriend");
 		User user = (User) auth.getPrincipal();
 		mv.addObject("amigos",user.getRequisicoes());
 		return mv;

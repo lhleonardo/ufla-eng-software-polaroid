@@ -1,0 +1,21 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.min.css}">
+    <link rel="stylesheet" th:href="@{/css/sweetalert.min.css}">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chat do Polaroid</title>
+</head>
+
+<body>
+	<a th:href="/searchNewFriends/${user.nickname}" th:each = "user ${users}">
+		<laybel th:text = "${user.username}"></laybel>
+		<button type = "submit" >Mandar solicitacao de amizade</button>
+	</a>
+</body>
+
+
+</html>
