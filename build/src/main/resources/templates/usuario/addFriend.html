@@ -1,23 +1,38 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/styles.min.css}">
-    <link rel="stylesheet" th:href="@{/css/sweetalert.min.css}">
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles.min.css}">
+<link rel="stylesheet" th:href="@{/css/sweetalert.min.css}">
 
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Chat do Polaroid</title>
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Chat do Polaroid</title>
 </head>
 
 <body>
-	<a th:each = "user ${users}">
-		<a th:href="/friend_request/accept/${user.nickname}">adicionar</a>
-		<a th:href="/friend_reject/accept/${user.nickname}">rejeitar</a>
-	</a>
-	
-	
-	
+	<div class="container">
+		<div class="jumbotron">
+			<h1 class="display-4">Solicitações de amizade</h1>
+			<p class="lead">Aqui estão todas as solicitações de amizade que foram enviadas para você</p>
+			<hr class="my-4">
+			<p>Você pode aceitar ou rejeitar as solicitações. Após aceitar, o amigo estará disponível para conversa</p>
+			<p class="lead">
+				<a class="btn btn-primary btn-lg" href="/" role="button">Voltar ao início</a>
+			</p>
+		</div>
+		<div th:each = "invite: ${invitations}" class="card text-center" style="width: 18rem;">
+			<div class="card-body">
+				<h5 class="card-title" th:text="${invite.ownerName}">Nome do
+					Usuário</h5>
+				<p th:text="${invite.username}" class="card-text">nickname</p>
+				<a th:href="@{/profile/requests/{friendNick}/accept(friendNick=${invite.username})}"
+					class="btn btn-success">Aceitar</a> 
+				<a th:href="@{/profile/requests/{friendNick}/reject(friendNick=${invite.username})}"
+					class="btn btn-danger">Rejeitar</a>
+			</div>
+		</div>
+	</div>
 </body>
 
 
