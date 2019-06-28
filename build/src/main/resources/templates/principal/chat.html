@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="chat.css">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/styles.min.css}">
-    <link rel="stylesheet" th:href="@{/css/sweetalert.min.css}">
+    <link rel="stylesheet" th:href="@{/css/chat.css}">
 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Chat do Polaroid</title>
@@ -26,10 +23,10 @@
                     </div>
                     <div class="info-usuario">
                         <img src="img/user.png" class=" foto-perfil rounded-circle" alt="Foto de perfil">
-                        <div class="nomes" th:object = "${user}">
+                        <div class="nomes">
                             <div class="nome-usuario" th:text = "${user.getOwnerName()}">
                             </div>
-                            <div class="nickname" th:text = "${user.getUsername()}">
+                            <div class="nickname" id="selfNick" th:text = "${user.getUsername()}">
                             </div>
                         </div>
                     </div>
@@ -43,30 +40,46 @@
                         </div>
                     </div>
                     <div class="painel-conversas overflow-auto">
-                        <div class="list-group conversas" th:each = "conversa: ${conversas}">
-                            <a href="#" class="conversa list-group-item" th:attr="data-conversa-id=${conversa.id}">
+                        <div class="list-group conversas" >
+                            <a href="#" class="conversa list-group-item" th:each = "conversa: ${conversas}" th:attr="data-conversa_participant=${conversa.participant.username},data-conversa_id=${conversa.id}">
                                 <div class="conversa-mensagem">
                                     <div class="conversa-mensagem-resumo">
                                         <img class="foto-perfil rounded-circle" src="img/user.png" alt="Foto de perfil">
                                         <div class="mensagem">
-                                            <div class="destinatario" th:text = "${conversa.getParticipant()}"></div>
-                                            <div class="mensagem-enviada" th:text = "${conversa.newestMessage()}"></div>
+                                            <div class="destinatario" th:text = "${conversa.participant.ownerName}"></div>
+                                            <div class="mensagem-enviada" th:text="${conversa.messages[0].content}"></div>
                                         </div>
                                     </div>
-                                    <div class="data" th:text = "${conversa.getDate()}">
+                                    <div class="data" th:text="${#temporals.format(conversa.messages[0].createdAt, 'dd/MM/yy')}" >
                                     </div>
                                 </div>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="chat"></div>
-            </div>
+				<div class="chat col-9 invisible">
+					<div class="participante">
+						<span class="nome" id="nomeParticipante"></span>
+					</div>
+					<div class="mensagens" id="mensagens"></div>
+					<div class="enviar-mensagem" id="enviarMensagem">
+						<form action="#" method="post" id="form-mensagem">
+							<input type="text" name="mensagem" id="mensagem"
+								style="width: 90%">
+							<button type="submit">Enviar</button>
+						</form>
+
+
+					</div>
+				</div>
+			</div>
         </div>
     </div>
-    <script src="js/bootstrap.min.js ">
-    
-    </script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js "></script>
+    <script src="js/sockjs.min.js"></script>
+    <script src="js/stomp.min.js"></script>
+    <script src="js/chat.js"></script>
 
 
 </body></html>

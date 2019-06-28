@@ -25,7 +25,7 @@ public class Message implements Comparable<Message> {
 
 	@Column
 	private LocalDateTime createdAt;
-	
+
 	@Column
 	private LocalDateTime visualizedAt;
 
@@ -37,6 +37,10 @@ public class Message implements Comparable<Message> {
 			return -1;
 		}
 		return 0;
+	}
+
+	public Message() {
+		this.createdAt = LocalDateTime.now();
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -64,6 +68,7 @@ public class Message implements Comparable<Message> {
 	public LocalDateTime getVisualizedAt() {
 		return visualizedAt;
 	}
+
 	public Long getId() {
 		return id;
 	}
@@ -84,7 +89,7 @@ public class Message implements Comparable<Message> {
 	public String getContent() {
 		return content;
 	}
-	
+
 	public void setContent(String content) {
 		this.content = content;
 	}

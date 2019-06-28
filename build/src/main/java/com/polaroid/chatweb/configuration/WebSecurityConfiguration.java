@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
@@ -27,6 +28,7 @@ import com.polaroid.chatweb.service.AuthenticatorService;
  */
 @Configuration
 @EnableWebSecurity
+@EnableWebSocketMessageBroker
 @EnableAsync
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter implements WebSocketMessageBrokerConfigurer {
 
@@ -73,12 +75,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter imple
 
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/javatechie").withSockJS();
+		registry.addEndpoint("/ws").setAllowedOrigins("*").withSockJS();
 	}
 
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
-		registry.enableSimpleBroker("/topic");
-		registry.setApplicationDestinationPrefixes("/app");
+		registry.enableSimpleBroker("/user");
+		registry.setUserDestinationPrefix("/user");
 	}
 }

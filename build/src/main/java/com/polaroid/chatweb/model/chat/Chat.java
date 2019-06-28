@@ -3,13 +3,13 @@ package com.polaroid.chatweb.model.chat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-
 import java.util.HashSet;
-
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -32,14 +32,14 @@ public class Chat implements Comparable<Chat> {
 
 	private LocalDateTime createdAt;
 
-	@ManyToMany()
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "chat_messages", joinColumns = {
 			@JoinColumn(name = "chat_id", nullable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "message_id", nullable = false) })
-	private List<Message> messages;
+	private Set<Message> messages;
 
 	public Chat() {
-		this.messages = new ArrayList<Message>();
+		this.messages = new HashSet<Message>();
 	}
 
 	public User getOwner() {
@@ -85,8 +85,9 @@ public class Chat implements Comparable<Chat> {
 
 
 	public List<Message> getMessages() {
-		Collections.sort(messages);
-		return messages;
+		ArrayList<Message> list = new ArrayList<>(this.messages);
+		Collections.sort(list);
+		return list;
 	}
 
 	public String getNewestMessage() {
