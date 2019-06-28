@@ -13,7 +13,11 @@ function connect() {
     stompClient.connect({}, function (frame) {
         stompClient.subscribe('/user/' + selfID + '/msg', function (response) {
             resultado = JSON.parse(response.body);
-            adicionarMensagem(resultado.content)
+            tela = document.querySelector("a[data-conversa_participant='"+resultado.from+"']")
+            if (tela == null) {
+            	document.location.reload(true)
+            }
+            adicionarMensagem("[" + resultado.from+ "] "+ resultado.content)
         });
     });
 }
@@ -21,7 +25,7 @@ function connect() {
 formEnviarMensagem.addEventListener("submit", event => {
 	event.preventDefault()
 	stompClient.send('/chat', {}, JSON.stringify({'to': chatArea.dataset.conversa_participant, 'from': selfID, 'content': document.getElementById("mensagem").value}))
-	adicionarMensagem(document.getElementById("mensagem").value)
+	adicionarMensagem("[" + selfID + "] "+ document.getElementById("mensagem").value)
 	document.getElementById("mensagem").value = ""
 })
 
@@ -54,10 +58,39 @@ function abrirConversa(idConversa, idParticipante) {
 			document.getElementById("nomeParticipante").innerHTML = data.participant
 			console.log(data)
 			data.messages.forEach(message => {
-				adicionarMensagem(message.content)
+				adicionarMensagem("[" + message.author.username+ "] "+ message.content)
 			})
 		})
 		.catch(erro => console.log(erro))
 }
 
 connect();
+
+function novaConversa() {	
+	fetch("/friends/" + selfID)
+		.then(response => response.json())
+		.then(amigos => {
+			console.log(amigos)
+			texto = "<select id='my-select-2'>"
+			amigos.forEach(amigo => {
+				texto += "<option value='" + amigo.username + "'>" + amigo.ownerName + "</option>"
+			})
+			texto += "</select>"
+				
+			Swal.fire({
+				title: 'Selecione um amigo para conversar',
+				html: texto,
+					onOpen: () => {
+						$('#my-select-2').select2()
+					},
+					preConfirm: () => {
+						return $('#my-select-2').val()
+					}
+			}).then(result => {
+				Swal.fire('You selected: ' + result.value)
+				
+				fetch("/chat/create/" + selfID + "/" + result.value)
+					.then(result => document.location.reload(true));
+			})
+		})
+}
