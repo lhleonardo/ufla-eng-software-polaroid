@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -111,6 +112,35 @@ public class UserController {
 
 		userRepository.deleteById(user.getId());
 		return "redirect:/logout";
+	}
+	
+	
+	@RequestMapping(value = "/friend_request",method = RequestMethod.GET)
+	public ModelAndView showFriends(Authentication auth) {
+		ModelAndView mv = new ModelAndView();
+		User user = (User) auth.getPrincipal();
+		mv.addObject("amigos",user.getRequisicoes());
+		return mv;
+	}
+	
+	@RequestMapping(value = "/friend_request/accept/{friendNick}",method = RequestMethod.POST)
+	public String accepetFriend(@PathVariable("friendNick") String nickName,Authentication auth) {
+		User user = (User) auth.getPrincipal();
+		Optional<User> optUser = userRepository.findByUsernameOrEmail(nickName,nickName);
+		user.acceptFriend(optUser.get());
+		userRepository.save(user);
+		
+		return "redirect:/friend-requests";
+	}
+	
+	@RequestMapping(value = "/friend_request/reject/{friendNick}",method = RequestMethod.POST)
+	public String rejecttFriend(@PathVariable("friendNick") String nickName,Authentication auth) {
+		User user = (User) auth.getPrincipal();
+		Optional<User> optUser = userRepository.findByUsernameOrEmail(nickName,nickName);
+		user.rejectFriend(optUser.get());
+		userRepository.save(user);
+		
+		return "redirect:/friend-requests";
 	}
 
 }
