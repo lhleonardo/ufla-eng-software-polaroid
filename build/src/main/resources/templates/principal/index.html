@@ -1,15 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Inicio Polaroid</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Inicio Polaroid</title>
 </head>
 <body>
 	<ul>
 		<li><a href="/profile/change">Alterar dados cadastrais</a></li>
 		<li><a href="/logout">Sair</a></li>
 	</ul>
+
+	<ul>
+		<li th:each="conversa: ${conversas}">
+			<a href="#"	class="abrir-conversa" 
+				th:text="${conversa}" 
+				th:attr="data-conversa-id=${conversa.id}">
+				Nome do participante	
+			</a>
+		</li>
+	</ul>
+	
+	<script>
+		function configurarAberturaConversas() {
+			document.querySelectorAll("a.abrir-conversa[data-conversa-id]");
+		}
+	</script>
 </body>
 </html>

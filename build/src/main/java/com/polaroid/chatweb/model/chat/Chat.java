@@ -31,5 +31,19 @@ public class Chat {
 			@JoinColumn(name = "chat_id", nullable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "message_id", nullable = false) })
 	private Set<Message> messages;
+	
+	
+	@Override
+	public String toString() {
+		return participant.getOwnerName();
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public Set<Message> getMessages() {
+		return messages;
+	}
 
 }
