@@ -32,7 +32,7 @@ public class ChatController {
 
 	@Autowired
 	private MessageRepository messageRepository;
-	
+
 	@Autowired
 	private SimpMessagingTemplate sender;
 
@@ -57,7 +57,7 @@ public class ChatController {
 		m.setAuthor(from);
 
 		m = messageRepository.save(m);
-		
+
 		addMessage(m, from, to);
 		addMessage(m, to, from);
 
@@ -83,8 +83,28 @@ public class ChatController {
 
 			repository.save(chatFrom);
 		}
-		
+
 		System.out.println("salvando a mensagem " + m.getContent() + " na conversa " + opChatFrom.get().getId());
+	}
+
+	@GetMapping(path = "/chat/create/{user1}/{user2}")
+	public String createChat(@PathVariable("user1") String user1, @PathVariable("user2") String user2) {
+		System.out.printf("Chat entre %s e %s%n", user1, user2);
+		User u1 = userRepository.findByUsernameOrEmail(user1, user1).get();
+		User u2 = userRepository.findByUsernameOrEmail(user2, user2).get();
+
+		Chat c1 = new Chat();
+		c1.setOwner(u1);
+		c1.setParticipant(u2);
+
+		Chat c2 = new Chat();
+		c2.setOwner(u2);
+		c2.setParticipant(u1);
+
+		repository.save(c1);
+		repository.save(c2);
+
+		return "redirect:/";
 	}
 
 }
