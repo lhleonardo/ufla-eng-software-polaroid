@@ -1,0 +1,97 @@
+html,
+body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.app {
+    width: 80%;
+    height: 90%;
+    background-color: rgba(243, 240, 240, 0.774);
+    box-shadow: 1px 3px 28px -1px rgba(0, 0, 0, 0.66);
+}
+
+.app .row {
+    height: 100%;
+}
+
+.app-container {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(83, 167, 135, 0.527);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-usuario {
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    background: white;
+}
+
+.sidebar-usuario .opcoes-usuario {
+    background: rgb(245, 240, 240);
+    padding: 1.8em 1.2em;
+    display: flex;
+    justify-content: space-between;
+    height: 10%
+}
+
+.sidebar-usuario .info-usuario {
+    display: flex;
+    align-items: center;
+    height: 10%;
+}
+
+.sidebar-usuario .info-usuario .foto-perfil {
+    width: 4.5em;
+    height: 4.5em;
+    margin: .7em 1.5em;
+}
+
+.sidebar-usuario .buscar-conversa {
+    margin: 10px;
+}
+
+.sidebar-usuario .painel-conversas {
+    max-height: 72%;
+    height: 72%;
+    width: 100%
+}
+
+a.conversa {
+    color: #212529;
+}
+
+a.conversa:link {
+    text-decoration: none;
+}
+
+a.conversa:hover {
+    text-decoration: none;
+}
+
+.conversa-mensagem-resumo .foto-perfil {
+    width: 3em;
+    height: 3em;
+}
+
+.conversa-mensagem {
+    display: flex;
+    justify-content: space-between;
+}
+
+.conversa-mensagem .conversa-mensagem-resumo {
+    display: flex;
+}
+
+.conversa-mensagem .conversa-mensagem-resumo .mensagem {
+    margin-left: 1em;
+}

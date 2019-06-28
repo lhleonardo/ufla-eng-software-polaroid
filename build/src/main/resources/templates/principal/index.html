@@ -23,9 +23,20 @@
 		</li>
 	</ul>
 	
+	<div id="mensagens">
+		
+	</div>
+	
 	<script>
 		function configurarAberturaConversas() {
-			document.querySelectorAll("a.abrir-conversa[data-conversa-id]");
+			var botoes = document.querySelectorAll("a.abrir-conversa[data-conversa-id]");
+			var chatArea = document.getElementById("mensagens");
+			
+			botoes.forEach(botao => {
+				botao.addEventListener("click", evt => {
+					
+				});
+			});
 		}
 	</script>
 </body>
