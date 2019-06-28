@@ -1,10 +1,14 @@
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="fontawesome/css/all.min.css">
     <link rel="stylesheet" href="chat.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.min.css}">
+    <link rel="stylesheet" th:href="@{/css/sweetalert.min.css}">
 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Chat do Polaroid</title>
@@ -22,12 +26,10 @@
                     </div>
                     <div class="info-usuario">
                         <img src="img/user.png" class=" foto-perfil rounded-circle" alt="Foto de perfil">
-                        <div class="nomes">
-                            <div class="nome-usuario">
-                                Leonardo Henrique
+                        <div class="nomes" th:object = "${user}">
+                            <div class="nome-usuario" th:text = "${user.getOwnerName()}">
                             </div>
-                            <div class="nickname">
-                                lhleonardo
+                            <div class="nickname" th:text = "${user.getUsername()}">
                             </div>
                         </div>
                     </div>
@@ -41,172 +43,17 @@
                         </div>
                     </div>
                     <div class="painel-conversas overflow-auto">
-                        <div class="list-group conversas">
-                            <a href="#" class="conversa list-group-item">
+                        <div class="list-group conversas" th:each = "conversa: ${conversas}">
+                            <a href="#" class="conversa list-group-item" th:attr="data-conversa-id=${conversa.id}">
                                 <div class="conversa-mensagem">
                                     <div class="conversa-mensagem-resumo">
                                         <img class="foto-perfil rounded-circle" src="img/user.png" alt="Foto de perfil">
                                         <div class="mensagem">
-                                            <div class="destinatario">Silvinha </div>
-                                            <div class="mensagem-enviada">Olá tudo bem?</div>
+                                            <div class="destinatario" th:text = "${conversa.getParticipant()}"></div>
+                                            <div class="mensagem-enviada" th:text = "${conversa.newestMessage()}"></div>
                                         </div>
                                     </div>
-                                    <div class="data">
-                                        06/06/2019
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="conversa list-group-item">
-                                <div class="conversa-mensagem">
-                                    <div class="conversa-mensagem-resumo">
-                                        <img class="foto-perfil rounded-circle" src="img/user.png" alt="Foto de perfil">
-                                        <div class="mensagem">
-                                            <div class="destinatario">Silvinha </div>
-                                            <div class="mensagem-enviada">Olá tudo bem?</div>
-                                        </div>
-                                    </div>
-                                    <div class="data">
-                                        06/06/2019
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="conversa list-group-item">
-                                <div class="conversa-mensagem">
-                                    <div class="conversa-mensagem-resumo">
-                                        <img class="foto-perfil rounded-circle" src="img/user.png" alt="Foto de perfil">
-                                        <div class="mensagem">
-                                            <div class="destinatario">Silvinha </div>
-                                            <div class="mensagem-enviada">Olá tudo bem?</div>
-                                        </div>
-                                    </div>
-                                    <div class="data">
-                                        06/06/2019
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="conversa list-group-item">
-                                <div class="conversa-mensagem">
-                                    <div class="conversa-mensagem-resumo">
-                                        <img class="foto-perfil rounded-circle" src="img/user.png" alt="Foto de perfil">
-                                        <div class="mensagem">
-                                            <div class="destinatario">Silvinha </div>
-                                            <div class="mensagem-enviada">Olá tudo bem?</div>
-                                        </div>
-                                    </div>
-                                    <div class="data">
-                                        06/06/2019
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="conversa list-group-item">
-                                <div class="conversa-mensagem">
-                                    <div class="conversa-mensagem-resumo">
-                                        <img class="foto-perfil rounded-circle" src="img/user.png" alt="Foto de perfil">
-                                        <div class="mensagem">
-                                            <div class="destinatario">Silvinha </div>
-                                            <div class="mensagem-enviada">Olá tudo bem?</div>
-                                        </div>
-                                    </div>
-                                    <div class="data">
-                                        06/06/2019
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="conversa list-group-item">
-                                <div class="conversa-mensagem">
-                                    <div class="conversa-mensagem-resumo">
-                                        <img class="foto-perfil rounded-circle" src="img/user.png" alt="Foto de perfil">
-                                        <div class="mensagem">
-                                            <div class="destinatario">Silvinha </div>
-                                            <div class="mensagem-enviada">Olá tudo bem?</div>
-                                        </div>
-                                    </div>
-                                    <div class="data">
-                                        06/06/2019
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="conversa list-group-item">
-                                <div class="conversa-mensagem">
-                                    <div class="conversa-mensagem-resumo">
-                                        <img class="foto-perfil rounded-circle" src="img/user.png" alt="Foto de perfil">
-                                        <div class="mensagem">
-                                            <div class="destinatario">Silvinha </div>
-                                            <div class="mensagem-enviada">Olá tudo bem?</div>
-                                        </div>
-                                    </div>
-                                    <div class="data">
-                                        06/06/2019
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="conversa list-group-item">
-                                <div class="conversa-mensagem">
-                                    <div class="conversa-mensagem-resumo">
-                                        <img class="foto-perfil rounded-circle" src="img/user.png" alt="Foto de perfil">
-                                        <div class="mensagem">
-                                            <div class="destinatario">Silvinha </div>
-                                            <div class="mensagem-enviada">Olá tudo bem?</div>
-                                        </div>
-                                    </div>
-                                    <div class="data">
-                                        06/06/2019
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="conversa list-group-item">
-                                <div class="conversa-mensagem">
-                                    <div class="conversa-mensagem-resumo">
-                                        <img class="foto-perfil rounded-circle" src="img/user.png" alt="Foto de perfil">
-                                        <div class="mensagem">
-                                            <div class="destinatario">Silvinha </div>
-                                            <div class="mensagem-enviada">Olá tudo bem?</div>
-                                        </div>
-                                    </div>
-                                    <div class="data">
-                                        06/06/2019
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="conversa list-group-item">
-                                <div class="conversa-mensagem">
-                                    <div class="conversa-mensagem-resumo">
-                                        <img class="foto-perfil rounded-circle" src="img/user.png" alt="Foto de perfil">
-                                        <div class="mensagem">
-                                            <div class="destinatario">Silvinha </div>
-                                            <div class="mensagem-enviada">Olá tudo bem?</div>
-                                        </div>
-                                    </div>
-                                    <div class="data">
-                                        06/06/2019
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="conversa list-group-item">
-                                <div class="conversa-mensagem">
-                                    <div class="conversa-mensagem-resumo">
-                                        <img class="foto-perfil rounded-circle" src="img/user.png" alt="Foto de perfil">
-                                        <div class="mensagem">
-                                            <div class="destinatario">Silvinha </div>
-                                            <div class="mensagem-enviada">Olá tudo bem?</div>
-                                        </div>
-                                    </div>
-                                    <div class="data">
-                                        06/06/2019
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="conversa list-group-item">
-                                <div class="conversa-mensagem">
-                                    <div class="conversa-mensagem-resumo">
-                                        <img class="foto-perfil rounded-circle" src="img/user.png" alt="Foto de perfil">
-                                        <div class="mensagem">
-                                            <div class="destinatario">Silvinha </div>
-                                            <div class="mensagem-enviada">Olá tudo bem?</div>
-                                        </div>
-                                    </div>
-                                    <div class="data">
-                                        06/06/2019
+                                    <div class="data" th:text = "${conversa.getDate()}">
                                     </div>
                                 </div>
                             </a>
@@ -217,7 +64,9 @@
             </div>
         </div>
     </div>
-    <script src="js/bootstrap.min.js "></script>
+    <script src="js/bootstrap.min.js ">
+    
+    </script>
 
 
 </body></html>

@@ -1,6 +1,7 @@
 package com.polaroid.chatweb.controller.chat;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -23,11 +24,11 @@ public class ChatController {
 
 	@GetMapping(path = "/chat/{chatId}", produces = "application/json")
 	@ResponseBody
-	public Set<Message> getMessagesFromChat(@PathParam("chatId") Long chatId) {
+	public List<Message> getMessagesFromChat(@PathParam("chatId") Long chatId) {
 		Optional<Chat> result = repository.findById(chatId);
 
 		if (result.isEmpty())
-			return Collections.emptySet();
+			return Collections.emptyList();
 
 		return result.get().getMessages();
 	}

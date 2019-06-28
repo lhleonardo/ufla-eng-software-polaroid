@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import com.polaroid.chatweb.model.user.User;
 
 @Entity
-public class Message {
+public class Message implements Comparable<Message> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +25,66 @@ public class Message {
 
 	@Column
 	private LocalDateTime createdAt;
+	
 	@Column
 	private LocalDateTime visualizedAt;
+
+	@Override
+	public int compareTo(Message o) {
+		if (this.getCreateAt().isAfter(o.getCreateAt())) {
+			return 1;
+		} else if (this.getCreateAt().isBefore(o.getCreateAt())) {
+			return -1;
+		}
+		return 0;
+	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_user")
 	private User author;
+
+	public LocalDateTime getCreateAt() {
+		return createdAt;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getVisualizedAt() {
+		return visualizedAt;
+	}
+
+	public void setVisualizedAt(LocalDateTime visualizedAt) {
+		this.visualizedAt = visualizedAt;
+	}
+
+	public User getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(User author) {
+		this.author = author;
+	}
 
 }
