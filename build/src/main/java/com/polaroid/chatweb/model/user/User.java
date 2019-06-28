@@ -17,6 +17,8 @@ import javax.validation.constraints.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class User implements UserDetails {
 
@@ -47,9 +49,11 @@ public class User implements UserDetails {
 	@Column(nullable = false)
 	private boolean isValidated;
 
+	@JsonIgnore
 	@ManyToMany
 	private List<User> friends;
 	
+	@JsonIgnore
 	@ManyToMany
 	private List<User> requests;
 

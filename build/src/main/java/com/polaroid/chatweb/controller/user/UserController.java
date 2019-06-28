@@ -125,16 +125,17 @@ public class UserController {
 		User user = userRepository.findById(((User) auth.getPrincipal()).getId()).get();
 		list.remove(user);
 		list.removeAll(user.getFriends());
+		list.removeAll(user.getRequisicoes());
 		mv.addObject("users", list);
 		return mv;
 	}
 
-	@RequestMapping(value = "/profile/friends/add/{newFriendNick}", method = RequestMethod.POST)
+	@RequestMapping(value = "/profile/friends/add/{newFriendNick}", method = RequestMethod.GET)
 	public String sendRequestToFriend(Authentication auth, @PathVariable("newFriendNick") String nickName) {
 		User user = (User) auth.getPrincipal();
-		Optional<User> optUser = userRepository.findByUsernameOrEmail(nickName, nickName);
-		user.sendFriendRequest(optUser.get());
-		userRepository.save(user);
+		User u2 = userRepository.findByUsernameOrEmail(nickName, nickName).get();
+		u2.sendFriendRequest(user);
+		userRepository.save(u2);
 
 		return "redirect:/profile/friends/search";
 	}
@@ -151,10 +152,14 @@ public class UserController {
 	@RequestMapping(value = "/profile/requests/{friendNick}/accept", method = RequestMethod.GET)
 	public String accepetFriend(@PathVariable("friendNick") String nickName, Authentication auth) {
 		User user = (User) auth.getPrincipal();
-		Optional<User> optUser = userRepository.findByUsernameOrEmail(nickName, nickName);
+		User optUser = userRepository.findByUsernameOrEmail(nickName, nickName).get();
 		user = userRepository.findById(user.getId()).get();
-		user.acceptFriend(optUser.get());
+		user.acceptFriend(optUser);
+		User u2 = optUser;
+		u2.acceptFriend(user);
+		
 		userRepository.save(user);
+		userRepository.save(u2);
 
 		return "redirect:/profile/requests/";
 	}
