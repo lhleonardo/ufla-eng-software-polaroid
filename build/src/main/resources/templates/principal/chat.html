@@ -1,13 +1,15 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 		xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="fontawesome/css/all.min.css">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/chat.css}">
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <link rel="stylesheet" th:href="@{/fontawesome/css/all.min.css}"></link>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"></link>
+    <link rel="stylesheet" th:href="@{/css/chat.css}"></link>
 
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+	<meta http-equiv="X-UA-Compatible" content="ie=edge"></meta>
     <title>Chat do Polaroid</title>
 </head>
 
@@ -17,12 +19,27 @@
             <div class="row">
                 <div class="sidebar-usuario col-3">
                     <div class="opcoes-usuario">
-                        <a href="#"><i class="fa fa-2x fa-cog"></i></a>
+						<div class="dropdown">
+							<a href="#" id="about-us" data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false"><i class="fa fa-2x fa-cog"></i></a>
+							<div class="dropdown-menu" aria-labelledby="about-us">
+								<h5 class="dropdown-header">Conversas</h5>
+								<a class="dropdown-item" href="#" onclick="novaConversa()">Nova Conversa</a>
+								<h5 class="dropdown-header">Meus amigos</h5>
+								<a class="dropdown-item" th:href="@{/profile/requests/}">Ver solicitações de amizade</a> 
+								<a class="dropdown-item" th:href="@{/profile/friends/search}">Adicionar/procurar amigo</a> 
+								<h5 class="dropdown-header">Meus dados</h5>
+								<a class="dropdown-item" th:href="@{/profile/change}">Alterar dados</a>
+								<h5 class="dropdown-header">Autenticação</h5>
+								<a class="dropdown-item" th:href="@{/logout}">Sair</a>
+							</div>
+						</div>
+						
                         <h4>Polaroid</h4>
                         <a href="#"><i class="fa fa-2x fa-bell"></i></a>
                     </div>
                     <div class="info-usuario">
-                        <img src="img/user.png" class=" foto-perfil rounded-circle" alt="Foto de perfil">
+                        <img th:src="@{/image/user.png}" class=" foto-perfil rounded-circle" alt="Foto de perfil">
                         <div class="nomes">
                             <div class="nome-usuario" th:text = "${user.getOwnerName()}">
                             </div>
@@ -43,13 +60,13 @@
                             <a href="#" class="conversa list-group-item" th:each = "conversa: ${conversas}" th:attr="data-conversa_participant=${conversa.participant.username},data-conversa_id=${conversa.id}">
                                 <div class="conversa-mensagem">
                                     <div class="conversa-mensagem-resumo">
-                                        <img class="foto-perfil rounded-circle" src="img/user.png" alt="Foto de perfil">
+                                        <img class="foto-perfil rounded-circle" th:src="@{/image/user.png}" alt="Foto de perfil">
                                         <div class="mensagem">
                                             <div class="destinatario" th:text = "${conversa.participant.ownerName}"></div>
-                                            <div class="mensagem-enviada" th:text="${conversa.messages[0].content}"></div>
+                                            <div class="mensagem-enviada" th:if="${not #lists.isEmpty(conversa.messages)}" th:text="${conversa.messages[0].content}"></div>
                                         </div>
                                     </div>
-                                    <div class="data" th:text="${#temporals.format(conversa.messages[0].createdAt, 'dd/MM/yy')}" >
+                                    <div class="data" th:if="${not #lists.isEmpty(conversa.messages)}" th:text="${#temporals.format(conversa.messages[0].createdAt, 'dd/MM/yy')}" >
                                     </div>
                                 </div>
                             </a>
@@ -64,11 +81,9 @@
 					<div class="enviar-mensagem" id="enviarMensagem">
 						<form action="#" method="post" id="form-mensagem">
 							<input type="text" name="mensagem" id="mensagem"
-								style="width: 90%">
+								style="width: 90%"></input>
 							<button type="submit">Enviar</button>
 						</form>
-
-
 					</div>
 				</div>
 			</div>

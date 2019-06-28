@@ -10,6 +10,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -22,6 +24,7 @@ import com.polaroid.chatweb.model.user.User;
 public class Chat implements Comparable<Chat> {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@ManyToOne
@@ -100,6 +103,9 @@ public class Chat implements Comparable<Chat> {
 
 	@Override
 	public int compareTo(Chat o) {
+		if (this.getMessages().size() == 0) {
+			return -1;
+		}
 		if (this.getMessages().get(0).getCreateAt().isAfter(o.getMessages().get(0).getCreateAt())) {
 			return 1;
 		} else if (this.getMessages().get(0).getCreateAt().isBefore(o.getMessages().get(0).getCreateAt())) {

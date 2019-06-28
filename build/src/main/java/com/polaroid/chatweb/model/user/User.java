@@ -3,7 +3,6 @@ package com.polaroid.chatweb.model.user;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,14 +10,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import com.polaroid.chatweb.model.chat.Chat;
 
 @Entity
 public class User implements UserDetails {
@@ -50,10 +47,15 @@ public class User implements UserDetails {
 	@Column(nullable = false)
 	private boolean isValidated;
 
-	@OneToMany
-	private HashMap<User, Boolean> friends;
+	@ManyToMany
+	private List<User> friends;
+	
+	@ManyToMany
+	private List<User> requests;
 
 	User() {
+		this.requests = new ArrayList<>();
+		this.friends = new ArrayList<>();
 	}
 
 	public User(Long id, @NotNull String username, @Email @NotNull String email, @NotNull String ownerName,
@@ -70,37 +72,26 @@ public class User implements UserDetails {
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void acceptFriend(User user) {
-		friends.replace(user, true);
+		requests.remove(user);
+		friends.add(user);
 	}
-	
+
 	public void rejectFriend(User user) {
-		friends.remove(user);
+		requests.remove(user);
 	}
 
 	public List<User> getFriends() {
-		ArrayList<User> amigos = new ArrayList<User>();
-		for (User user : friends.keySet()) {
-			if (friends.get(user)) {
-				amigos.add(user);
-			}
-		}
-		return amigos;
+		return this.friends;
 	}
 
 	public List<User> getRequisicoes() {
-		ArrayList<User> requisicoes = new ArrayList<User>();
-		for (User user : friends.keySet()) {
-			if (!(friends.get(user))) {
-				requisicoes.add(user);
-			}
-		}
-		return requisicoes;
+		return this.requests;
 	}
-	
+
 	public void sendFriendRequest(User user) {
-		friends.put(user, false);
+		this.requests.add(user);
 	}
 
 	public String getEmail() {
@@ -203,6 +194,5 @@ public class User implements UserDetails {
 			return false;
 		return true;
 	}
-
 
 }
