@@ -2,17 +2,21 @@ package com.polaroid.chatweb.model.user;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.polaroid.chatweb.model.chat.Chat;
 
 @Entity
 public class User implements UserDetails {
@@ -43,6 +47,9 @@ public class User implements UserDetails {
 
 	@Column(nullable = false)
 	private boolean isValidated;
+
+	@OneToMany
+	private List<Chat> chats;
 
 	User() {
 	}
@@ -163,4 +170,8 @@ public class User implements UserDetails {
 		return true;
 	}
 
+	public List<Chat> getChats() {
+		return chats;
+	}
+	
 }

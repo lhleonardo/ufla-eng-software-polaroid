@@ -46,21 +46,11 @@ public class Message implements Comparable<Message> {
 	public LocalDateTime getCreateAt() {
 		return createdAt;
 	}
-	
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
+	public void visualize() {
+		if (visualizedAt != null) {
+			this.visualizedAt = LocalDateTime.now();
+		}
 	}
 
 	public LocalDateTime getCreatedAt() {
@@ -74,9 +64,13 @@ public class Message implements Comparable<Message> {
 	public LocalDateTime getVisualizedAt() {
 		return visualizedAt;
 	}
+	public Long getId() {
+		return id;
+	}
 
-	public void setVisualizedAt(LocalDateTime visualizedAt) {
-		this.visualizedAt = visualizedAt;
+	public void setId(Long id) {
+		this.id = id;
+
 	}
 
 	public User getAuthor() {
@@ -85,6 +79,14 @@ public class Message implements Comparable<Message> {
 
 	public void setAuthor(User author) {
 		this.author = author;
+	}
+
+	public String getContent() {
+		return content;
+	}
+	
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 }
