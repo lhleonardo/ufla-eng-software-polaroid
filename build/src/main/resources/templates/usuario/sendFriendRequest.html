@@ -1,20 +1,44 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/styles.min.css}">
-    <link rel="stylesheet" th:href="@{/css/sweetalert.min.css}">
-
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Chat do Polaroid</title>
+	<meta charset="UTF-8"></meta>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"></link>
+	<link rel="stylesheet" th:href="@{/css/styles.min.css}"></link>
+	<link rel="stylesheet" th:href="@{/css/sweetalert.min.css}"></link>
+	
+	<meta http-equiv="X-UA-Compatible" content="ie=edge"></meta>
+	<title>Chat do Polaroid</title>
 </head>
 
 <body>
-	<a th:href="/searchNewFriends/${user.nickname}" th:each = "user ${users}">
-		<laybel th:text = "${user.username}"></laybel>
-		<button type = "submit" >Mandar solicitacao de amizade</button>
-	</a>
+
+
+
+	<div class="container">
+		<div class="jumbotron">
+			<h1 class="display-4">Adicionar amigos</h1>
+			<p class="lead">Aqui você pode adicionar um amigo, na listagem abaixo de todos os usuários presentes na plataforma.</p>
+			<hr class="my-4">
+			<p>Clique em adicionar para enviar uma solicitação de amizade</p>
+			<p class="lead">
+				<a class="btn btn-primary btn-lg" href="/" role="button">Voltar ao início</a>
+			</p>
+		</div>
+		<div th:each="user :${users}" class="card text-center" style="width: 18rem;">
+			<div class="card-body">
+				<h5 class="card-title" th:text="${user.ownerName}">Nome do
+					Usuário</h5>
+				<p th:text="${user.username}" class="card-text">nickname</p>
+				<a th:href="@{/profile/friends/add/} + ${user.username}"
+					class="btn btn-primary">Enviar convite</a>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
 </body>
 
 
