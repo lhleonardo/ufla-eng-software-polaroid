@@ -1,6 +1,7 @@
 package com.polaroid.chatweb.model.chat;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -32,6 +33,42 @@ public class Chat {
 					@JoinColumn(name = "message_id", nullable = false) })
 	private Set<Message> messages;
 	
+	
+	public Chat() {
+		this.messages = new HashSet<>();
+	}
+	
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
+
+	public User getParticipant() {
+		return participant;
+	}
+
+	public void setParticipant(User participant) {
+		this.participant = participant;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void addMessage(Message m) {
+		this.messages.add(m);
+	}
 	
 	@Override
 	public String toString() {
