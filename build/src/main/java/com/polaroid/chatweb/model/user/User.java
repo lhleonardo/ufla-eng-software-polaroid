@@ -98,6 +98,10 @@ public class User implements UserDetails {
 		}
 		return requisicoes;
 	}
+	
+	public void sendFriendRequest(User user) {
+		friends.put(user, false);
+	}
 
 	public String getEmail() {
 		return email;
@@ -200,8 +204,5 @@ public class User implements UserDetails {
 		return true;
 	}
 
-	public List<Chat> getChats() {
-		return chats;
-	}
 
 }

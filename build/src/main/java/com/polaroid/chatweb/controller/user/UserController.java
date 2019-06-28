@@ -1,5 +1,6 @@
 package com.polaroid.chatweb.controller.user;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -9,6 +10,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -113,6 +115,27 @@ public class UserController {
 		userRepository.deleteById(user.getId());
 		return "redirect:/logout";
 	}
+	
+	@RequestMapping(value = "/searchNewFriends", method = RequestMethod.GET)
+	public ModelAndView searchFriends(Authentication auth){
+		ModelAndView mv = new ModelAndView();
+		ArrayList<User> list = (ArrayList<User>)userRepository.findAll();
+		list.remove(auth.getPrincipal());
+		mv.addObject("usuarios",list);
+		return mv;
+	}
+	
+	@RequestMapping(value = "/searchNewFriends/{newFriendNick}", method = RequestMethod.POST)
+	public String sendRequestToFriend(Authentication auth,@PathVariable("newFriendNick") String nickName){
+		User user = (User) auth.getPrincipal();
+		Optional<User> optUser = userRepository.findByUsernameOrEmail(nickName,nickName);
+		user.sendFriendRequest(optUser.get());
+		userRepository.save(user);
+		
+		return "redirect:/searchNewFriends";
+	}
+	
+	
 	
 	
 	@RequestMapping(value = "/friend_request",method = RequestMethod.GET)
